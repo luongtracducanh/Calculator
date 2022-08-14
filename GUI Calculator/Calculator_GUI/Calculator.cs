@@ -64,10 +64,18 @@ namespace Calculator_GUI
                 {
                     //result.Text = Math.Sqrt(double.Parse(result.Text)).ToString();
                     result.Text = Operators.Sqrt(double.Parse(result.Text)).ToString();
-                    equal.PerformClick();
-                    operation_pressed = true;
-                    operation = b.Text;
-                    equation_display.Text = operation + "(" + value * value + ")";
+                    if (result.Text == "NaN")
+                    {
+                        clear.PerformClick();
+                        MessageBox.Show("Math ERROR");
+                    }
+                    else
+                    {
+                        equal.PerformClick();
+                        operation_pressed = true;
+                        operation = b.Text;
+                        equation_display.Text = operation + "(" + value * value + ")";
+                    }
                 }
                 else
                 {
@@ -81,7 +89,15 @@ namespace Calculator_GUI
             {
                 //result.Text = Math.Sqrt(double.Parse(result.Text)).ToString();
                 result.Text = Operators.Sqrt(double.Parse(result.Text)).ToString();
-                value = Math.Sqrt(double.Parse(result.Text));
+                if (result.Text == "NaN")
+                {
+                    clear.PerformClick();
+                    MessageBox.Show("Math ERROR");
+                }
+                else
+                {
+                    value = Math.Sqrt(double.Parse(result.Text));
+                }
             }
             else
             {
@@ -117,9 +133,7 @@ namespace Calculator_GUI
                     result.Text = Operators.Divide(value, double.Parse(result.Text)).ToString();
                     if ((result.Text == "∞") || ((result.Text == "NaN")))
                     {
-                        result.Text = "0";
-                        value = 0;
-                        equation_display.Text = "";
+                        clear.PerformClick();
                         MessageBox.Show("Math ERROR");
                     }
                     break;
